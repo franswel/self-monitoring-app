@@ -68,9 +68,13 @@ Run app.js:
 
 When opened, the application shows its user the frontpage. There are links for reporting daily data and summaries but the user can't access these without
 first logging in. Clicking any of the links without an active session will redirect the user to the login page. In the login page there is a link to the registration page in case the user does not have an account made. 
-  After authentication the user will be redirected back to the frontpage, where now is a trend of users daily mood if any data has been submitted. Also now the buttons for reporting daily data and summaries are available, as well as a logout option. In the reporting page the user can choose between entering morning/ evening data. Also there are messages showing if current days data has already been submitted. In the summary page the user is greeted with the weekly and monthly averages of
-users data. In addition there are search options for singular weeks/months data. If no data is present in the searched week/month, there will be a message indicating that no data is available.
 
+After authentication the user will be redirected back to the frontpage, where now is a trend of users daily mood if any data has been submitted. Also now the buttons for reporting daily data and summaries are available, as well as a logout option. 
+  
+In the reporting page the user can choose between entering morning/ evening data. Also there are messages showing if current days data has already been submitted. In the summary page the user is greeted with the weekly and monthly averages of users data. 
+
+In addition there are search options for singular weeks/months data. If no data is present in the searched week/month, there will be a message indicating that no data is available.
+ 
 In addition API endpoints /api/summary and /api/summary/:year/:month/:day are available to all users without the need to authenticate
 
 
