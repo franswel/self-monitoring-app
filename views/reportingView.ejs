@@ -1,0 +1,18 @@
+<%- include('./partials/header.ejs') %>
+	<h2>Report data for morning or evening</h2>
+
+	<table>
+	<tr>
+		<th> 
+			<a href="/behaviour/reporting/morning">Morning</a>
+		</th>
+		<th> 
+			<a href="/behaviour/reporting/evening">Evening</a>
+		</th>
+	</tr>
+	<tr>
+		<td><%= data.morning %></td>
+		<td><%= data.evening %></td>
+	</tr>
+	</table>
+<%- include('./partials/footer.ejs') %>

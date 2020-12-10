@@ -1,0 +1,108 @@
+<%- include('./partials/header.ejs') %>
+	<h2>Summary</h2>
+
+	<table>
+	<tr>
+		<th> 
+			<form method='POST' action="/behaviour/summary/week">
+				<p>Select week</p>
+				<input type="week" name="week" />
+				<input type="submit" value="Search" />
+			</form>
+		</th>
+		<th> 
+			<form method='POST' action="/behaviour/summary/month">
+				<p>Select month</p>
+				<input type="month" name="month" />
+				<input type="submit" value="Search" />
+			</form>
+		</th>
+	</tr>
+	</table>
+<h3>Last 7 days</h3>
+	<table>
+	<tr>
+		<th>Action</th>
+		<th>Average</th>
+		<th>Trend</th>
+	</tr>
+	<tr>
+		<td>Sleep</td>
+		<td><%= w.data.sleep_duration %> hours</td>
+		<td><%= w.trends.sleep_duration %></td>
+	</tr>
+	<tr>
+		<td>Quality of sleep</td>
+		<td><%= w.data.sleep_quality %> / 5</td>
+		<td><%= w.trends.sleep_quality %></td>
+	</tr>
+	<tr>
+		<td>Sports and excercise</td>
+		<td><%= w.data.sports %> hours</td>
+		<td><%= w.trends.sports %></td>
+	</tr>
+	<tr>
+		<td>Studying</td>
+		<td><%= w.data.study %> hours</td>
+		<td><%= w.trends.study %></td>
+	</tr>
+	<tr>
+		<td>Eating regularity</td>
+		<td><%= w.data.eating_regularity %> / 5</td>
+		<td><%= w.trends.eating_regularity %></td>
+	</tr>
+	<tr>
+		<td>Quality of eating</td>
+		<td><%= w.data.eating_quality %> / 5</td>
+		<td><%= w.trends.eating_quality %></td>
+	</tr>
+	<tr>
+		<td>Generic mood</td>
+		<td><%= w.data.generic_mood %> / 5</td>
+		<td><%= w.trends.generic_mood %></td>
+	</tr>
+	</table>
+<h3>Last 30 days</h3>
+	<table>
+	<tr>
+		<th>Action</th>
+		<th>Average</th>
+		<th>Trend</th>
+	</tr>
+	<tr>
+		<td>Sleep</td>
+		<td><%= m.data.sleep_duration %> hours</td>
+		<td><%= m.trends.sleep_duration %></td>
+	</tr>
+	<tr>
+		<td>Quality of sleep</td>
+		<td><%= m.data.sleep_quality %> / 5</td>
+		<td><%= m.trends.sleep_quality %></td>
+	</tr>
+	<tr>
+		<td>Sports and excercise</td>
+		<td><%= m.data.sports %> hours</td>
+		<td><%= m.trends.sports %></td>
+	</tr>
+	<tr>
+		<td>Studying</td>
+		<td><%= m.data.study %> hours</td>
+		<td><%= m.trends.study %></td>
+	</tr>
+	<tr>
+		<td>Eating regularity</td>
+		<td><%= m.data.eating_regularity %> / 5</td>
+		<td><%= m.trends.eating_regularity %></td>
+	</tr>
+	<tr>
+		<td>Quality of eating</td>
+		<td><%= m.data.eating_quality %> / 5</td>
+		<td><%= m.trends.eating_quality %></td>
+	</tr>
+	<tr>
+		<td>Generic mood</td>
+		<td><%= m.data.generic_mood %> / 5</td>
+		<td><%= m.trends.generic_mood %></td>
+	</tr>
+	</table>
+<%- include('./partials/footer.ejs') %>

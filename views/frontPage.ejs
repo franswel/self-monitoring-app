@@ -1,0 +1,35 @@
+<%- include('./partials/header.ejs') %>
+	<h1>Self Monitoring App</h1>
+	<p>This is a self monitoring app for tracking your daily behaviour!</p>
+
+<table>
+	<tr>
+		<th> 
+			<h3><a href="/behaviour/reporting">Report your day</a></h3>
+		</th>
+		<th> 
+			<h3><a href="/behaviour/summary">Summary</a></h3>
+		</th>
+	</tr>
+</table>
+	
+	<h3>Today's mood</h3>
+	<% if (data.mood_today.length != 0) { %>
+		<h3><%= data.mood_today %></h3>
+	<% } else { %>
+		<h3>-</h3>
+	<% } %>
+
+	<h3>Yesterday's mood</h3>
+	<% if (data.mood_yesterday.length != 0) { %>
+		<h3><%= data.mood_yesterday %></h3>
+	<% } else { %>
+		<h3>-</h3>
+	<% } %>
+
+	<h1></h1>
+	<% if (data.message.length != 0) { %>
+		<h3><%= data.message %></h3>
+	<% } %>
+
+<%- include('./partials/footer.ejs') %>

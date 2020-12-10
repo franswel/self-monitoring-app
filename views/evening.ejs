@@ -1,0 +1,37 @@
+<%- include('./partials/header.ejs') %>
+	<table>
+	<tr>
+		<th> 
+			<a href="/behaviour/reporting/morning">Morning</a>
+		</th>
+		<th> 
+			<a href="/behaviour/reporting/evening">Evening</a>
+		</th>
+	</tr>
+	</table>
+	<h2>Good evening!</h2>
+
+	<form method="POST" action="/behaviour/reporting/evening">
+		<h4>Date</h4>
+    		<input type="date" id="date" name="date" value="<%= date %>" />
+		<h4>Excercise (hours)</h4>
+		<input type="text" name="excercise" value="<%= sport %>" />
+		<h4>Studying (hours)</h4>
+		<input type="text" name="studying" value="<%= study %>" />
+		<h4>Regularity of eating (1 - very poor, 5 - excellent)</h4>
+		<input type="range" name="eating_regularity" min="1" max="5" value="<%= eating_reg %>" />
+		<h4>Quality of eating (1 - very poor, 5 - excellent)</h4>
+		<input type="range" name="eating_quality" min="1" max="5" value="<%= eating_qua %>" />
+		<h4>Generic mood (1 - very poor, 5 - excellent)</h4>
+		<input type="range" name="mood" min="1" max="5" value="<%= mood %>" />
+		<h2></h2>
+   		<input type="submit" value="Report!" />
+	</form>
+<% if (errors) { %>
+<ul>
+    <% errors.forEach((err) => { %>
+            <li><%= err %></li>
+    <% }); %>
+</ul>
+<% } %>
+<%- include('./partials/footer.ejs') %>

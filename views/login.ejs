@@ -1,0 +1,17 @@
+<%- include('./partials/header.ejs') %>
+	<h1>Login!</h1>
+		<form method="POST" action="/auth/login">
+			<h3>Email</h3>
+    			<input type="email" name="email" />
+			<h3>Password</h3>
+    			<input type="password" name="password" />
+    			<table><tr><th><input type="submit" value="Login!" /></th>
+			<th><a href="/auth/register">register</a></th>
+			</tr></table>
+		</form>
+<% if (errors.length != 0) { %>
+<ul>
+	<li><%= errors %></li>
+</ul>
+<% } %>
+<%- include('./partials/footer.ejs') %>

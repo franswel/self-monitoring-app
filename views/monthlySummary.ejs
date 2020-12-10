@@ -1,0 +1,61 @@
+<%- include('./partials/header.ejs') %>
+	<h2>Summary</h2>
+
+	<table>
+	<tr>
+		<th> 
+			<form method='POST' action="/behaviour/summary/week">
+				<p>Select week</p>
+				<input type="week" name="week" />
+				<input type="submit" value="Search" />
+			</form>
+		</th>
+		<th> 
+			<form method='POST' action="/behaviour/summary/month">
+				<p>Select month</p>
+				<input type="month" name="month" />
+				<input type="submit" value="Search" />
+			</form>
+		</th>
+	</tr>
+	</table>
+<% if (data) { %>
+<h3>Summary of <%= data.month %> <%= data.year %></h3> 
+	<table>
+	<tr>
+		<th>Action</th>
+		<th>Average</th>
+	</tr>
+	<tr>
+		<td>Sleep</td>
+		<td><%= data.sleep_d %> hours</td>
+	</tr>
+	<tr>
+		<td>Quality of sleep</td>
+		<td><%= data.sleep_q %> / 5</td>
+	</tr>
+	<tr>
+		<td>Sports and excercise</td>
+		<td><%= data.sport_h %> hours</td>
+	</tr>
+	<tr>
+		<td>Studying</td>
+		<td><%= data.study_h %> hours</td>
+	</tr>
+	<tr>
+		<td>Eating regularity</td>
+		<td><%= data.eat_reg %> / 5</td>
+	</tr>
+	<tr>
+		<td>Quality of eating</td>
+		<td><%= data.eat_qua %> / 5</td>
+	</tr>
+	<tr>
+		<td>Generic mood</td>
+		<td><%= data.mood %> / 5</td>
+	</tr>
+	</table>
+<% } else { %>
+	<h4>No data for given month.</h4>
+<% } %>
+<%- include('./partials/footer.ejs') %>
