@@ -1,9 +1,4 @@
-import { Client } from "../deps.js";
 import { config } from "../config/config.js";
-
-const getClient = () => {
-  return new Client(config.database);
-}
 
 let cache = {};
 
@@ -11,17 +6,18 @@ const deleteCache = async() => {
   cache = {};
 };
 
-const executeQuery = async(query, ...args) => {
-  const client = getClient();
+const executeQuery = async(query, ...params) => {
+  const client = await config.database.connect();
   try {
-    await client.connect();
-    return await client.query(query, ...args);
+      return await client.query(query, ...params);
   } catch (e) {
-    console.log(e);
+      console.log(e);  
   } finally {
-    await client.end();
+      client.release();
   }
-}
+  
+  return null;
+};
 
 const executeCachedQuery = async(query, ...params) => {
   const key = query + params.reduce((acc, o) => acc + "-" + o, "");
