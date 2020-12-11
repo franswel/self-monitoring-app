@@ -1,67 +1,75 @@
-# self-monitoring-app
-Self Monitoring App
+# Self Monitoring Application
 
 ## About The Application
 
 This application was done as the course project for the course CS-C3170 in Aalto University. The main purpose of the application is to monitor, track and summarize
-the routines of the user. The application can be accessed from [a link]() or run locally on localhost:7777. 
+the routines of the user. The application was built using Deno. Programming languages are HTML and js.
 
-## How to run locally
+Github link: [https://github.com/franswel/self-monitoring-app]
 
-### Prerequisites
+## Accessing the Application
 
-* Deno
-* Database
+The application is deployed to [https://routine-monitor.herokuapp.com/] but it can also be run locally using your own database and Deno.
 
 ### Installation
 
-1. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-2. Optionally extract from zip
+1. Install Deno from [https://deno.land/]
+
+2. Create necessary tables in your own database with these CREATE TABLE statements
+   ```sql
+   CREATE TABLE app_users (
+      id SERIAL PRIMARY KEY,
+      email VARCHAR(320) NOT NULL,
+      password CHAR(60) NOT NULL
+   );
+   CREATE UNIQUE INDEX ON app_users((lower(email)));
    
-### Necessary CREATE TABLE statements
-
-1. Table for users 
-  ```sql
-  CREATE TABLE app_users (
-    id SERIAL PRIMARY KEY,
-    email VARCHAR(320) NOT NULL,
-    password CHAR(60) NOT NULL
-  );
-  
-  CREATE UNIQUE INDEX ON app_users((lower(email)));
-  ```
-2. Table for morning reporting  
-  ```sql
-  CREATE TABLE morning (
-    id SERIAL PRIMARY KEY,
-    date DATE,
-    sleep_duration NUMERIC(100, 2),
-    sleep_quality INTEGER,
-    mood INTEGER,
-    user_id INTEGER REFERENCES app_users(id)
-  );
-  ```
-3. Table for evening reporting
-  ```sql
-  CREATE TABLE evening (
-    id SERIAL PRIMARY KEY,
-    date DATE,
-    sport_hours NUMERIC(100, 2),
-    study_hours NUMERIC(100, 2),
-    eating_regularity INTEGER,
-    eating_quality INTEGER,
-    mood INTEGER,
-    user_id INTEGER REFERENCES app_users(id)
-  );
-  ```
-## Running the application
-
-Run app.js:
+   CREATE TABLE morning (
+      id SERIAL PRIMARY KEY,
+      date DATE,
+      sleep_duration NUMERIC(100, 2),
+      sleep_quality INTEGER,
+      mood INTEGER,
+      user_id INTEGER REFERENCES app_users(id)
+   );
+   
+   CREATE TABLE evening (
+      id SERIAL PRIMARY KEY,
+      date DATE,
+      sport_hours NUMERIC(100, 2),
+      study_hours NUMERIC(100, 2),
+      eating_regularity INTEGER,
+      eating_quality INTEGER,
+      mood INTEGER,
+      user_id INTEGER REFERENCES app_users(id)
+   );
+   ```
+3. Clone the repo, optionally extract from zip
    ```sh
+   git clone https://github.com/franswel/self-monitoring-app.git
+   ```
+4. Input your own database parameters in the file config/config.js
+   ```
+   config.database = new Pool({
+      hostname: "your-database-hostname",
+      database: "your-database",
+      user: "your-database-user",
+      password: "your-database-password",
+      port: 5432
+   }, CONCURRENT_CONNECTIONS);
+   ```
+5. Start the server from the root of the file with
+   ```
    deno run --allow-net --allow-read --allow-env --allow-write --unstable app.js
+   ```
+   
+## Running tests
+
+1. Run tests from the /tests folder with: (replace values with your own)
+   Also change the testfile name in the command depending on the testfile you want to run. 
+   Some test don't work as expected as these were done using a local test database.
+   ```
+   PGHOST='your-host' PGDATABASE='your-database' PGPASSWORD='your-password' deno test --allow-env --allow-read --allow-net --unstable controller_tests.js
    ```
 
 ### Functionality
@@ -76,7 +84,6 @@ In the reporting page the user can choose between entering morning/ evening data
 In addition there are search options for singular weeks/months data. If no data is present in the searched week/month, there will be a message indicating that no data is available.
  
 In addition API endpoints /api/summary and /api/summary/:year/:month/:day are available to all users without the need to authenticate
-
 
 
 ## License
