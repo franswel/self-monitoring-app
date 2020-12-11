@@ -5,15 +5,15 @@
 This application was done as the course project for the course CS-C3170 in Aalto University. The main purpose of the application is to monitor, 
 track and summarize the routines of the user. The application was built using Deno. Programming languages are HTML and js.
 
-Github link: [https://github.com/franswel/self-monitoring-app]
+Github link: https://github.com/franswel/self-monitoring-app
 
 ## Accessing the Application
 
-The application is deployed to [https://routine-monitor.herokuapp.com/] but it can also be run locally using your own database and Deno.
+The application is deployed to https://routine-monitor.herokuapp.com/ but it can also be run locally using your own database and Deno.
 
 ### Installation
 
-1. Install Deno from [https://deno.land/]
+1. Install Deno from https://deno.land/
 
 2. Create necessary tables in your own database with these CREATE TABLE statements
    ```sql
