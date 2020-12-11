@@ -40,23 +40,21 @@ const getMessage = async(id) => {
     mood_yesterday: "",
     message: ""
   };
-  const avg_mood_today = await executeCachedQuery("SELECT AVG(mood) FROM \
-      ((SELECT mood FROM morning WHERE user_id=$1 ORDER BY date DESC LIMIT 1) \
-      UNION \
-      (SELECT mood FROM evening WHERE user_id=$1 ORDER BY date DESC LIMIT 1)) AS fodder", id);
-  const avg_mood_yesterday = await executeCachedQuery("SELECT AVG(mood) FROM \
-      ((SELECT mood FROM (SELECT date, mood FROM morning WHERE user_id=$1 ORDER BY date DESC LIMIT 2) AS a ORDER BY date LIMIT 1) \
-      UNION \
-      (SELECT mood FROM (SELECT date, mood FROM evening WHERE user_id=$1 ORDER BY date DESC LIMIT 2) AS a ORDER BY date LIMIT 1)) AS a", id);
+  const avg_mood_today = await executeCachedQuery(
+    "SELECT AVG(mood) AS mood FROM (SELECT mood FROM evening  WHERE user_id=$1 AND date BETWEEN NOW() - interval '1 days' AND NOW() \
+    UNION ALL SELECT mood FROM morning WHERE user_id=$1 AND date BETWEEN NOW() - interval '1 days' AND NOW()) AS fodder;", id)
+  const avg_mood_yesterday = await executeCachedQuery(
+    "SELECT AVG(mood) AS mood FROM (SELECT mood FROM evening  WHERE user_id=$1 AND date BETWEEN NOW() - interval '2 days' AND NOW() - interval '1 days' \
+    UNION ALL SELECT mood FROM morning WHERE user_id=$1 AND date BETWEEN NOW() - interval '2 days' AND NOW() - interval '1 days') AS fodder;", id)
 
-  if (avg_mood_today && avg_mood_today.rowCount > 0) {
-    data.mood_today = Number(avg_mood_today.rowsOfObjects()[0].avg).toFixed(1);
+  if (avg_mood_today.rowsOfObjects()[0].mood !== null) {
+    data.mood_today = Number(avg_mood_today.rowsOfObjects()[0].mood).toFixed(1);
   }
-  if (avg_mood_yesterday && avg_mood_yesterday.rowCount > 0) {
-    data.mood_yesterday = Number(avg_mood_yesterday.rowsOfObjects()[0].avg).toFixed(1);
+  if (avg_mood_yesterday.rowsOfObjects()[0].mood !== null) {
+    data.mood_yesterday = Number(avg_mood_yesterday.rowsOfObjects()[0].mood).toFixed(1);
   }
   if (data.mood_today.length != 0 && data.mood_yesterday.length != 0) {
-    if (Number(avg_mood_today.rowsOfObjects()[0].avg) >= Number(avg_mood_yesterday.rowsOfObjects()[0].avg)) {
+    if (Number(avg_mood_today.rowsOfObjects()[0].mood) >= Number(avg_mood_yesterday.rowsOfObjects()[0].mood)) {
       data.message = "Things are looking bright today!";
     } else {
       data.message = "Things are looking gloomy today...";
